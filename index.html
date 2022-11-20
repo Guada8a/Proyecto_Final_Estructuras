@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<body>
+<body onload="nuevoArbol();">
     <div class="navbar navbar-expand-lg bg-black text-white">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-white">&aacute;rboles Binarios</a>
@@ -37,11 +37,9 @@
                                 </legend>
                                 <div class="form-group card-body">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="txtE" placeholder="Expresión..." value="3*9-6*3/2+3*6+5*4/2">
+                                        <input type="text" class="form-control" id="txtE" placeholder="Expresión..." value="3*9-6*3/2+3*6+5*4/2" onchange="nuevoArbol()" onkeypress="this.onchange();" oninput="this.onchange();">
                                         <label for="txtE">Ingrese una expresión</label>
                                     </div>
-                                    <button type="button" class="btn btn-outline-dark" id="calcular"
-                                        style="width:100%; text-align:center" onclick="nuevoArbol();">Calcular</button>
                                 </div>
                             </fieldset>
                         </form>
