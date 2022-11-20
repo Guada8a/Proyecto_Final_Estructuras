@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <title>&Aacute;rbol Binario</title>
+    <style>
+        #div-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-expand-lg bg-black text-white">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand text-white">&aacute;rboles Binarios</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="bs-docs-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="bs-component">
+                        <form>
+                            <fieldset class="card bg-light mb-3" >
+                                <legend class="card-header">
+                                    <h4>Expresión</h4>
+                                </legend>
+                                <div class="form-group card-body">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="txtE" placeholder="Expresión..." value="1+2*23*23/2">
+                                        <label for="txtE">Ingrese una expresion</label>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-dark" id="calcular"
+                                        style="width:100%; text-align:center" onclick="nuevoArbol();">Calcular</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <p class="class-component">
+                        <form>
+                            <fieldset class="card" bg-light mb-3>
+                                <legend class="card-header">
+                                    <h5>Procedimientos</h5>
+                                </legend>
+                                <div class="form-group card-body">
+                                    <h5 id="resultado">Resultado:</h5>
+                                    <h5 id="preorden">PreOrden:</h5>
+                                    <h5 id="inorden">InOrden:</h5>
+                                    <h5 id="postorden">PostOrden:</h5>
+                                    <span id="div-button">
+                                        <button type="button" style="width:40%; text-align:center;" class="btn btn-outline-dark" id="verArbol">Ver Arbol</button>
+                                    </span>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal-->
+    <div class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Árbol Binario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="json-arbol"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./modules/arbol.js"></script>
+</html>
