@@ -1,9 +1,4 @@
-//
-$(document).ready(function () {
-    $("#verArbol").click(function () {
-        $('.modal').modal('show');
-    });
-});
+
 if (!String.contains) {
     String.prototype.contains = function (it) { return this.indexOf(it) >= 0; };
 }
@@ -25,8 +20,67 @@ function nuevoArbol() {
     nodos.ordenar();
     document.getElementById('resultado').innerHTML = "Resultado: <small class='text-muted'>" + creacion[0].total + "</small>";
     console.info(creacion);
-    document.getElementById('json-arbol').innerHTML = `<pre>${JSON.stringify(creacion[0],null," ")}</pre>`;
+    crearCanvas(creacion[0]);
+    //document.getElementById('json-arbol').innerHTML = `<pre>${JSON.stringify(creacion[0], null, " ")}</pre>`;
 }
+function crearCanvas(arbol) {
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "bold 17px Calibri";
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    var centerx = canvas.width / 2;
+    dibujarArbol(ctx, arbol, centerx, 10, 200, 50);
+}
+function dibujarArbol(ctx, nodo, x, y, ancho, alto) {
+    if (nodo == null) return;
+    if (nodo.izquierda != null) {
+        ctx.beginPath();
+        ctx.arc(x - ancho, (y - 10) + (alto), 10, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#000";
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(x, y + 10);
+        ctx.lineTo(x, y + 20);
+        ctx.lineTo(x - ancho,y + 20);
+        ctx.lineTo(x - ancho, (y - 10) + (alto - 10));
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#FF0000";
+        ctx.stroke();
+    }
+    if (nodo.derecha != null) {
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#000";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x + ancho, (y - 10) + (alto), 10, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#000";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.stroke();
+        ctx.moveTo(x, y + 10);
+        ctx.lineTo(x, y + 20);
+        ctx.lineTo(x + ancho, y + 20);
+        ctx.lineTo(x + ancho, (y - 10) + (alto - 10));
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#FF0000";
+        ctx.stroke();
+    }
+    if (nodo.nodo == "*")
+        ctx.fillText(nodo.nodo, x, y+5);
+    else
+        ctx.fillText(nodo.nodo, x, y);
+        
+    dibujarArbol(ctx, nodo.izquierda, x - ancho, y + (alto-10), ancho / 2, alto);
+    dibujarArbol(ctx, nodo.derecha, x + ancho, y + (alto-10), ancho / 2, alto);
+}
+
 class Arbol{
     constructor(expresion) {
         this.expresion = expresion;
