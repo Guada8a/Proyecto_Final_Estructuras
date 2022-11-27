@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<body onload="nuevoArbol();">
+<body>
     <div class="navbar navbar-expand-lg bg-black text-white">
         <div class="container-fluid">
             <a href="#" class="navbar-brand text-white">&aacute;rboles Binarios</a>
@@ -37,15 +37,16 @@
                                 </legend>
                                 <div class="form-group card-body">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="txtE" placeholder="Expresión..." value="3*9-6*3/2+3*6+5*4/2" onchange="nuevoArbol()" onkeypress="this.onchange();" oninput="this.onchange();">
+                                        <input type="text" class="form-control" id="txtE" placeholder="Expresión..." value="3*9-6*3/2+3*6+5*4/2">
                                         <label for="txtE">Ingrese una expresión</label>
                                     </div>
+                                    <button type="button" class="btn btn-outline-dark" id="calcular" style="width:100%; text-align:center">Calcular</button>
                                 </div>
                             </fieldset>
                         </form>
                     </p>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                     <p class="class-component">
                         <form>
                             <fieldset class="card" bg-light mb-3>
@@ -53,10 +54,10 @@
                                     <h5>Procedimientos</h5>
                                 </legend>
                                 <div class="form-group card-body">
-                                    <h5 id="resultado">Resultado:</h5>
                                     <h5 id="preorden">PreOrden:</h5>
-                                    <h5 id="inorden">InOrden:</h5>
+                                    <h5 id="resultado-preorden">Resultado PreOrden:</h5>
                                     <h5 id="postorden">PostOrden:</h5>
+                                    <h5 id="resultado-postorden">Resultado Postorden:</h5>
                                 </div>
                             </fieldset>
                         </form>
@@ -69,6 +70,6 @@
         <h3>Gráfico del Árbol</h3>
         <canvas id="canvas" width="1000px" height="500px" style="margin-left: 20px;"></canvas>
     </span>
+    <script src="./modules/arbol_funcion.js"></script>
 </body>
-<script src="./modules/arbol.js"></script>
 </html>
