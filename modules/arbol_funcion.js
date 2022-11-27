@@ -1,10 +1,11 @@
 class Nodo {
     constructor(valor) {
-        this.valor = valor;
         this.hijoizq = null;
+        this.valor = valor;
         this.hijoder = null;
         this.siguiente = null;
         this.anterior = null;
+        this.indice = null;
     }
 }
 class ArbolBinario{
@@ -15,7 +16,7 @@ class ArbolBinario{
         this.respro = '';
     }
     agregar(expresion) {
-        let expresion_d = this.aNodo(expresion);
+        let expresion_d = this.agregarNodo(expresion);
         for (let i = 0; i < expresion_d.length; i++) {
             if (this.primero == null) {
                 this.primero = expresion_d[i];
@@ -30,10 +31,12 @@ class ArbolBinario{
         return expresion_d;
     }
 
-    aNodo(expresion) {
+    agregarNodo(expresion) {
         let arreglo = [];
         for (let i = 0; i < expresion.length; i++) {
-            arreglo.push(new Nodo(expresion[i]));
+            let nodo = new Nodo(expresion[i]);
+            nodo.indice = i;
+            arreglo.push(nodo);
         }
         return arreglo;
     }
@@ -149,12 +152,11 @@ class ArbolBinario{
     resPreOrder(expresion) {
         let pila = [];
 
-
         for (let i = expresion.length - 1; i >= 0; i--) {
             if (expresion[i] == '+' || expresion[i] == '-' || expresion[i] == '*' || expresion[i] == '/') {
                 let der = Number(pila.pop());
                 let izq = Number(pila.pop());
-                pila.push(this.Calculos(expresion[i], der, izq));
+                pila.push(this.calcularExp(expresion[i], der, izq));
             } else {
                 pila.push(expresion[i]);
             }
@@ -167,7 +169,7 @@ class ArbolBinario{
             if (expresion[i] == '+' || expresion[i] == '-' || expresion[i] == '*' || expresion[i] == '/') {
                 let der = Number(pila.pop());
                 let izq = Number(pila.pop());
-                pila.push(this.Calculos(expresion[i], izq, der));
+                pila.push(this.calcularExp(expresion[i], izq, der));
             } else {
                 pila.push(expresion[i]);
             }
@@ -176,7 +178,7 @@ class ArbolBinario{
 
     }
 
-    Calculos(op, l, r) {
+    calcularExp(op, l, r) {
         let resultado;
         switch (op) {
             case '+':
@@ -203,14 +205,14 @@ class ArbolBinario{
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         var centerx = canvas.width / 2;
-        this.dibujarArbol(ctx, this.root, centerx, 12, 140, 50);
+        this.dibujarArbol(ctx, this.root, centerx, 12, 170, 50);
     }
     dibujarArbol(ctx, tree, x, y, ancho, alto) {
         if (!tree) return;
         else {
             ctx.beginPath();
-            ctx.arc(x, y, 10, 0, 50 * Math.PI);
-            ctx.lineWidth = 2;
+            ctx.arc(x, y, 10, 0, (Math.PI / 180) * 360);
+            ctx.lineWidth = 3;
             ctx.strokeStyle = "#FF5733";
             ctx.stroke();
         }
@@ -222,7 +224,7 @@ class ArbolBinario{
             ctx.lineTo(x - ancho, y + 20);
             ctx.lineTo(x - ancho, (y - 10) + (alto - 10));
             ctx.strokeStyle = "black";
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
         }
         if (tree.hijoder != null) {
@@ -232,7 +234,7 @@ class ArbolBinario{
             ctx.lineTo(x + ancho, y + 20);
             ctx.lineTo(x + ancho, (y - 10) + (alto - 10));
             ctx.strokeStyle = "black";
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.stroke();
         }
         if (tree.valor == "*")
@@ -246,7 +248,14 @@ class ArbolBinario{
 }
 
 //Relacion html with javascript
-document.getElementById('calcular').addEventListener('click', () => {
+document.getElementById('calcular').addEventListener('click', startTree);
+
+let inputExpresion = document.getElementById('txtE');
+inputExpresion.addEventListener('keyup', startTree);
+inputExpresion.addEventListener('keypress', startTree);
+inputExpresion.addEventListener('onchange', startTree);
+
+function startTree() {
     console.clear();
     let Arbol = new ArbolBinario();
 
@@ -255,6 +264,7 @@ document.getElementById('calcular').addEventListener('click', () => {
 
     let expresion = document.getElementById('txtE').value;
     console.log(Arbol.agregar(expresion));
+    
     [post, pre] = Arbol.expresion(expresion);
 
     console.log("Arbol:");
@@ -268,7 +278,7 @@ document.getElementById('calcular').addEventListener('click', () => {
     re1.innerHTML = 'Resultado PreOrden: <small class="text-muted">' + Arbol.resPreOrder(pre) + '</small>';
     pre = pre.split('').join(', ');
     e1.innerHTML = 'PreOrden: <small class="text-muted">' + pre + '</small>';
-    
+
     re3.innerHTML = 'Resultado PostOrder: <small class="text-muted">' + Arbol.resPostOrder(post) + '</small>';
     post = post.split('').join(', ');
     e3.innerHTML = 'PostOrden: <small class="text-muted">' + post + '</small>';
@@ -278,4 +288,4 @@ document.getElementById('calcular').addEventListener('click', () => {
     console.log("Postorder: " + post);
     console.log("Resultado es preorder: " + Arbol.resPreOrder(pre));
     console.log("Resultado en postorder: " + Arbol.resPostOrder(post));
-});
+}
